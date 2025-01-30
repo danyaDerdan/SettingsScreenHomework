@@ -5,7 +5,6 @@ final class UserInfoEntry: UIStackView {
     private lazy var headingLabel = createHeadingLabel()
     private lazy var infoLabel = createInfoLabel()
     
-    
     private func setupLayout() {
         backgroundColor = .white
         axis = .vertical
@@ -17,4 +16,6 @@ final class UserInfoEntry: UIStackView {
         infoLabel.text = info
         setupLayout()
     }
+    
+    
 }
