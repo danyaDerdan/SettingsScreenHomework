@@ -38,6 +38,12 @@ class ViewController: UIViewController {
     private lazy var sex = makeUserInfoEntry(heading: "Sex", info: "Woman")
     private lazy var work = makeUserInfoEntry(heading: "Work", info: "Software Engineer")
     
+    //MARK: Family member entries
+    
+    private lazy var husband = FamilyMemberEntry(member: "Husband", name: "Artyom", birthdate: "01.02.1990")
+    private lazy var child1 = FamilyMemberEntry(member: "Child", name: "Bart Simpson", birthdate: "01.02.1990")
+    private lazy var child2 = FamilyMemberEntry(member: "Child", name: "Lizzy", birthdate: "01.02.1990")
+    
     //MARK: Definition of headStackView
     
     private lazy var headStackView: UIStackView = {
@@ -66,6 +72,7 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         setupheadStack()
         setupUserInfoStack()
+        setupFamilyInfoStack()
     }
 
     private func setupheadStack() {
@@ -97,6 +104,10 @@ class ViewController: UIViewController {
         let infoEntry = UserInfoEntry()
         infoEntry.setup(heading: heading, info: info)
         return infoEntry
+    }
+    
+    private func setupFamilyInfoStack() {
+        [husband, child1, child2].forEach() { familyInfoStackView.addArrangedSubview($0) }
     }
 
 }

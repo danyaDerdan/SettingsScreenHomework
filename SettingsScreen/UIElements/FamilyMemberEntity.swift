@@ -33,6 +33,10 @@ final class FamilyMemberEntry: UIStackView {
         backgroundColor = .white
         axis = .vertical
         
+        
+        memberLabel.text = member
+        nameLabel.text = name
+        birthdateLabel.text = birthdate
         [memberLabel, infoStack].forEach { addArrangedSubview($0) }
     }
     
