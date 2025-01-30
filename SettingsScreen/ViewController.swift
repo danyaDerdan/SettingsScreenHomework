@@ -35,7 +35,8 @@ class ViewController: UIViewController {
 
     //MARK: User info entries
     
-    private lazy var sex = makeUserInfoEntry(headig: "Sex", info: "Woman")
+    private lazy var sex = makeUserInfoEntry(heading: "Sex", info: "Woman")
+    private lazy var work = makeUserInfoEntry(heading: "Work", info: "Software Engineer")
     
     //MARK: Definition of headStackView
     
@@ -55,10 +56,16 @@ class ViewController: UIViewController {
         return horizontalStackView
     }()
     
+    //MARK: Definition of InfoStack
+    
+    private lazy var userInfoStackView = InfoStackView()
+    private lazy var familyInfoStackView = InfoStackView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupheadStack()
+        setupUserInfoStack()
     }
 
     private func setupheadStack() {
@@ -71,10 +78,24 @@ class ViewController: UIViewController {
             ])
     }
     
+    private func setupUserInfoStack() {
+        view.addSubview(userInfoStackView)
+        [mainInfoLabel("User Info", 19), sex, work, subInfoLabel("Family"), familyInfoStackView].forEach {
+            userInfoStackView.addArrangedSubview($0)
+        }
+        
+        userInfoStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            userInfoStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            userInfoStackView.topAnchor.constraint(equalTo: headStackView.bottomAnchor, constant: 20),
+            userInfoStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: leadingInset)
+            ])
+    }
     
-    private func makeUserInfoEntry(headig: String, info: String) -> UserInfoEntry {
+    
+    private func makeUserInfoEntry(heading: String, info: String) -> UserInfoEntry {
         let infoEntry = UserInfoEntry()
-        infoEntry.setup(heading: headig, info: info)
+        infoEntry.setup(heading: heading, info: info)
         return infoEntry
     }
 
