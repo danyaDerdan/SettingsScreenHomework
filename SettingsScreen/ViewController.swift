@@ -2,113 +2,24 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    //MARK: Basic UI elements
-    
-    private let leadingInset: CGFloat = 16
-    private lazy var mainInfoLabel: (String, CGFloat) -> UILabel = { content, size in
-        let label = UILabel()
-        label.font = .systemFont(ofSize: size, weight: .medium)
-        label.text = content
-        return label
-    }
-    
-    private lazy var subInfoLabel: (String) -> UILabel = { content in
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
-        label.textColor = .gray
-        label.text = content
-        return label
-    }
-    
-    private lazy var profilePic: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "person.circle.fill"))
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 25
-        
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: 50),
-            imageView.heightAnchor.constraint(equalToConstant: 50)
-            ])
-        return imageView
-    }()
-
-    //MARK: User info entries
-    
-    private lazy var sex = makeUserInfoEntry(heading: "Sex", info: "Woman")
-    private lazy var work = makeUserInfoEntry(heading: "Work", info: "Software Engineer")
-    
-    //MARK: Family member entries
-    
-    private lazy var husband = FamilyMemberEntry(member: "Husband", name: "Artyom", birthdate: "01.02.1990")
-    private lazy var child1 = FamilyMemberEntry(member: "Child", name: "Bart Simpson", birthdate: "01.02.1990")
-    private lazy var child2 = FamilyMemberEntry(member: "Child", name: "Lizzy", birthdate: "01.02.1990")
-    
-    //MARK: Definition of headStackView
-    
-    private lazy var headStackView: UIStackView = {
-        let horizontalStackView = UIStackView()
-        horizontalStackView.axis = .horizontal
-        
-        let verticalStackView = UIStackView()
-        verticalStackView.axis = .vertical
-        
-        verticalStackView.addArrangedSubview(mainInfoLabel("Danyydze", 18))
-        verticalStackView.addArrangedSubview(subInfoLabel("01.01.1970"))
-        
-        horizontalStackView.addArrangedSubview(verticalStackView)
-        horizontalStackView.addArrangedSubview(profilePic)
-        
-        return horizontalStackView
-    }()
-    
-    //MARK: Definition of InfoStack
-    
-    private lazy var userInfoStackView = InfoStackView()
-    private lazy var familyInfoStackView = InfoStackView()
+    public lazy var infoTableView = createInfoTableView()
+    let cellsArray = [Cell(identifier: "InfoCell", section: 0, userInfo: User(name: "Danil Sigma", birthdate: "11.02.2007", picName: "person.circle.fill"))]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setupheadStack()
-        setupUserInfoStack()
-        setupFamilyInfoStack()
+        setupLayout()
     }
-
-    private func setupheadStack() {
-        view.addSubview(headStackView)
-        headStackView.translatesAutoresizingMaskIntoConstraints = false
+    
+    func setupLayout() {
+        view.addSubview(infoTableView)
+        infoTableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            headStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            headStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            headStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: leadingInset)
+            infoTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            infoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            infoTableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            infoTableView.rightAnchor.constraint(equalTo: view.rightAnchor)
             ])
     }
-    
-    private func setupUserInfoStack() {
-        view.addSubview(userInfoStackView)
-        [mainInfoLabel("User Info", 19), sex, work, subInfoLabel("Family"), familyInfoStackView].forEach {
-            userInfoStackView.addArrangedSubview($0)
-        }
-        
-        userInfoStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            userInfoStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            userInfoStackView.topAnchor.constraint(equalTo: headStackView.bottomAnchor, constant: 20),
-            userInfoStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: leadingInset)
-            ])
-    }
-    
-    
-    private func makeUserInfoEntry(heading: String, info: String) -> UserInfoEntry {
-        let infoEntry = UserInfoEntry()
-        infoEntry.setup(heading: heading, info: info)
-        return infoEntry
-    }
-    
-    private func setupFamilyInfoStack() {
-        [husband, child1, child2].forEach() { familyInfoStackView.addArrangedSubview($0) }
-    }
-
 }
 
