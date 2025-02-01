@@ -4,11 +4,11 @@ final class LabelCell: UITableViewCell {
 
     private lazy var label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.font = Constants.titleFont
         return label
     }()
     
-    public func configure(with text: String) {
+    public func configure(with text: String?) {
         label.text = text
         setupLabel()
     }
@@ -17,7 +17,7 @@ final class LabelCell: UITableViewCell {
         addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.leadingInset),
             label.centerYAnchor.constraint(equalTo: centerYAnchor)
             ])
     }

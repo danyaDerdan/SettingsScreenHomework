@@ -1,19 +1,14 @@
 import UIKit
 
-private enum UserInfo {
-    static let name = "Danil Sigma"
-    static let age = "22"
-}
-
 final class InfoCell: UITableViewCell {
 
     private lazy var horizontalStackView = createStack(axis: .horizontal)
     private lazy var verticalStackView = createStack(axis: .vertical)
     
-    private lazy var nameLabel = createLabel(text: UserInfo.name, font: .systemFont(ofSize: 17, weight: .medium))
-    private lazy var ageLabel = createLabel(text: UserInfo.age, font: .systemFont(ofSize: 13, weight: .light))
+    private lazy var nameLabel = createLabel(text: Constants.userName, font: Constants.titleFont)
+    private lazy var ageLabel = createLabel(text: Constants.userBirhdate, font: Constants.infoFont)
     
-    private lazy var personPic = createImageView(name: "person.circle.fill")
+    private lazy var personPic = createImageView(name: Constants.userPicName)
     
     public func setup() {
         backgroundColor = .lightGray.withAlphaComponent(0)
@@ -34,7 +29,7 @@ final class InfoCell: UITableViewCell {
     
 }
 
-private extension InfoCell {
+extension UITableViewCell { //Будем применять не в одной ячейке
     
     func createStack(axis: NSLayoutConstraint.Axis) -> UIStackView {
         let stack = UIStackView()

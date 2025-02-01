@@ -3,7 +3,8 @@ import UIKit
 class ViewController: UIViewController {
     
     public lazy var infoTableView = createInfoTableView()
-    let cellsArray = [Cell(identifier: "InfoCell", section: 0, userInfo: User(name: "Danil Sigma", birthdate: "11.02.2007", picName: "person.circle.fill"))]
+    let cellsArray = Constants.cells
+    let sections = Constants.headers
     
     override func viewDidLoad() {
         super.viewDidLoad()

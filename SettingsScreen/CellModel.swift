@@ -15,5 +15,4 @@ struct FamilyMember {
 struct User {
     var name: String
     var birthdate: String
-    var picName: String
 }
